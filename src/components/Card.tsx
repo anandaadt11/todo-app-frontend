@@ -10,6 +10,7 @@ interface User {
 }
 
 const Card = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const Card = () => {
 
   const getData: () => void = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api");
+      const response = await axios.get(`${apiUrl}`);
       const sortedData = response.data.data.sort(
         (a: User, b: User) =>
           new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
@@ -31,7 +32,7 @@ const Card = () => {
 
   const delateData = async (id: number) => {
     try {
-      axios.delete(`http://localhost:8080/api/${id}`);
+      axios.delete(`${apiUrl}/${id}`);
       getData();
     } catch (error) {
       console.error("Error delete data:", error);

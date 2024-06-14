@@ -5,12 +5,13 @@ import axios from "axios";
 function App() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const submitData = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8080/api", {
+      await axios.post(`${apiUrl}`, {
         title,
         description,
       });
